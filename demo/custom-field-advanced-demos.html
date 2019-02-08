@@ -15,7 +15,7 @@
             <vaadin-time-picker></vaadin-time-picker>
           </vaadin-custom-field>
           <vaadin-custom-field name="price" label="Price of the item">
-            <vaadin-text-field></vaadin-text-field>
+            <vaadin-number-field></vaadin-number-field>
             <vaadin-select>
               <template>
                 <vaadin-list-box>
@@ -38,9 +38,9 @@
             serializeBtn.addEventListener('click', function() {
               const serializedValues = form.serializeForm();
               document.querySelector('#msg').innerHTML =
-                `date: ${serializedValues['invoice-date']} 
-                 <br>
-                 price: ${serializedValues['price']}`;
+                'date: ' + serializedValues['invoice-date'] +
+                '<br>' +
+                'price: ' + serializedValues['price'];
             });
           });
         </script>

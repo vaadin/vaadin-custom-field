@@ -26,7 +26,7 @@
 ```
 -->
 ```html
-<vaadin-custom-field label="Choose appointment time">
+<vaadin-custom-field label="Appointment time">
   <vaadin-date-picker></vaadin-date-picker>
   <vaadin-time-picker></vaadin-time-picker>
 </vaadin-custom-field>>
