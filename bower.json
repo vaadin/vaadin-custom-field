@@ -38,6 +38,7 @@
     "vaadin-text-field": "vaadin/vaadin-text-field#^2.3.0",
     "vaadin-time-picker": "vaadin/vaadin-time-picker#^1.1.1",
     "vaadin-date-picker": "vaadin/vaadin-date-picker#^3.3.2",
+    "vaadin-form-layout": "vaadin/vaadin-form-layout#^2.1.0",
     "vaadin-select": "vaadin/vaadin-select#^2.0.2",
     "webcomponentsjs": "^1.0.0",
     "web-component-tester": "^6.1.5",
