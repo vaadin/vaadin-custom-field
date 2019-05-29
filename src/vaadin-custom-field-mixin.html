@@ -84,7 +84,7 @@
         if (e.keyCode === 9) {
           if (this.inputs.indexOf(e.target) < this.inputs.length - 1 && !e.shiftKey ||
               this.inputs.indexOf(e.target) > 0 && e.shiftKey) {
-            this.dispatchEvent(new CustomEvent('internal-tabbing'));
+            this.dispatchEvent(new CustomEvent('internal-tab'));
           }
         }
       });
@@ -159,7 +159,7 @@
      * Fired on Tab keydown triggered from the internal inputs,
      * meaning focus will not leave the inputs.
      *
-     * @event internal-tabbing
+     * @event internal-tab
      */
   };
 </script>

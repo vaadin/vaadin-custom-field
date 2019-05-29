@@ -39,40 +39,40 @@
         customField = fixture('default');
       });
 
-      it('should fire `internal-tabbing` event on Tab', () => {
-        const internalTabbingSpy = sinon.spy();
-        customField.addEventListener('internal-tabbing', internalTabbingSpy);
+      it('should fire `internal-tab` event on Tab', () => {
+        const internalTabSpy = sinon.spy();
+        customField.addEventListener('internal-tab', internalTabSpy);
         for (let i = 0; i < 3; i ++) {
           tab(customField.inputs[i]);
         }
 
-        expect(internalTabbingSpy.callCount).to.equal(3);
+        expect(internalTabSpy.callCount).to.equal(3);
       });
 
-      it('should not fire `internal-tabbing` event on Tab from the last input', () => {
-        const internalTabbingSpy = sinon.spy();
-        customField.addEventListener('internal-tabbing', internalTabbingSpy);
+      it('should not fire `internal-tab` event on Tab from the last input', () => {
+        const internalTabSpy = sinon.spy();
+        customField.addEventListener('internal-tab', internalTabSpy);
         customField.inputs[4];
 
-        expect(internalTabbingSpy).not.to.be.called;
+        expect(internalTabSpy).not.to.be.called;
       });
 
-      it('should fire `internal-tabbing` event on Shift Tab', () => {
-        const internalTabbingSpy = sinon.spy();
-        customField.addEventListener('internal-tabbing', internalTabbingSpy);
+      it('should fire `internal-tab` event on Shift Tab', () => {
+        const internalTabSpy = sinon.spy();
+        customField.addEventListener('internal-tab', internalTabSpy);
         for (let i = 3; i > 0; i --) {
           shiftTab(customField.inputs[i]);
         }
 
-        expect(internalTabbingSpy.callCount).to.equal(3);
+        expect(internalTabSpy.callCount).to.equal(3);
       });
 
-      it('should not fire `internal-tabbing` event on Shift Tab from the first input', () => {
-        const internalTabbingSpy = sinon.spy();
-        customField.addEventListener('internal-tabbing', internalTabbingSpy);
+      it('should not fire `internal-tab` event on Shift Tab from the first input', () => {
+        const internalTabSpy = sinon.spy();
+        customField.addEventListener('internal-tab', internalTabSpy);
         customField.inputs[0];
 
-        expect(internalTabbingSpy).not.to.be.called;
+        expect(internalTabSpy).not.to.be.called;
       });
 
     });
