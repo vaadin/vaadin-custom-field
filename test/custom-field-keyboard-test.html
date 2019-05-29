@@ -52,7 +52,7 @@
       it('should not fire `internal-tab` event on Tab from the last input', () => {
         const internalTabSpy = sinon.spy();
         customField.addEventListener('internal-tab', internalTabSpy);
-        customField.inputs[4];
+        tab(customField.inputs[3]);
 
         expect(internalTabSpy).not.to.be.called;
       });
@@ -70,7 +70,7 @@
       it('should not fire `internal-tab` event on Shift Tab from the first input', () => {
         const internalTabSpy = sinon.spy();
         customField.addEventListener('internal-tab', internalTabSpy);
-        customField.inputs[0];
+        shiftTab(customField.inputs[0]);
 
         expect(internalTabSpy).not.to.be.called;
       });
