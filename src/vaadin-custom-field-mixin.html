@@ -20,42 +20,33 @@
         },
 
         /**
-         * The object used to localize this component.
-         * To change the default localization, replace the entire
-         * _i18n_ object or just the property you want to modify.
-         *
-         * The object has the following JSON structure:
-
-           {
-             // A function to format given `Array` as
-             // component value. Array is list of all internal values
-             // in the order of their presence in the DOM
-             // This function is called each time the internal input
-             // value is changed.
-             formatValue: inputValues => {
-               // returns a representation of the given array of values
-               // in the form of string with delimiter characters
-             },
-
-             // A function to parse the given value to an `Array` in the format
-             // of the list of all internal values
-             // in the order of their presence in the DOM
-             // This function is called when value of the
-             // custom field is set.
-             parseValue: value => {
-               // returns the array of values from parsed value string.
-             }
-          */
-        i18n: {
+         * A function to parse the given value to an `Array` in the format
+         * of the list of all internal values
+         * in the order of their presence in the DOM
+         * This function is called when value of the
+         * custom field is set.
+         */
+        parseValue: {
           type: Object,
-          value: () => {
-            return {
-              parseValue: function(value) {
-                return value.split('\t');
-              },
-              formatValue: function(inputValues) {
-                return inputValues.join('\t');
-              }
+          value: function() {
+            return function(value) {
+              return value.split('\t');
+            };
+          }
+        },
+
+        /**
+         * A function to format given `Array` as
+         * component value. Array is list of all internal values
+         * in the order of their presence in the DOM
+         * This function is called each time the internal input
+         * value is changed.
+         */
+        formatValue: {
+          type: Object,
+          value: function() {
+            return function(inputValues) {
+              return inputValues.join('\t');
             };
           }
         },
@@ -140,7 +131,7 @@
 
     __setValue() {
       this.__settingValue = true;
-      this.value = this.i18n.formatValue.apply(this, [this.inputs.map(input => input.value)]);
+      this.value = this.formatValue.apply(this, [this.inputs.map(input => input.value)]);
       this.__settingValue = false;
     }
 
@@ -155,7 +146,7 @@
         return;
       }
 
-      const valuesArray = this.i18n.parseValue(value);
+      const valuesArray = this.parseValue(value);
       if (!valuesArray || valuesArray.length == 0) {
         console.warn('Value parser has not provided values array');
         return;
