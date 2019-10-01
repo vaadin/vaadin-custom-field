@@ -47,20 +47,36 @@
     </template>
   </test-fixture>
 
+  <test-fixture id="nested-deep">
+    <template>
+      <x-field>
+        <div>
+          <div>
+            <input type="text">
+            <input type="number">
+          </div>
+        </div>
+      </x-field>
+    </template>
+  </test-fixture>
+
   <script>
-    ['default', 'nested'].forEach(set => {
+    ['default', 'nested', 'nested-deep'].forEach(set => {
       describe(`slot updates (${set})`, function() {
         let parent, customField, inputElement;
 
         beforeEach(function() {
           // 'parent' is the element to add and remove inputs to/from for testing
-          parent = fixture(set);
+          const root = fixture(set);
           if (set === 'nested') {
-            // parent = <x-field>
-            customField = parent.$.customField;
+            parent = root; // <x-field>
+            customField = root.$.customField; // <custom-field>
+          } else if (set === 'nested-deep') {
+            parent = root.firstElementChild.firstElementChild; // inner <div>
+            customField = root.$.customField; // <custom-field>
           } else {
-            // parent and customField are both just the <custom-field>
-            customField = parent;
+            parent = root; // <custom-field>
+            customField = root; // <custom-field>
           }
           inputElement = window.document.createElement('input');
         });
