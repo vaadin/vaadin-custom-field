@@ -160,9 +160,7 @@
         result.push(elem);
         elements = Array.from(elem.children);
       }
-      elements.forEach(elem => {
-        result.push(...this.__queryAllAssignedElements(elem));
-      });
+      elements.forEach(elem => result.push(...this.__queryAllAssignedElements(elem)));
       return result;
     }
 
