@@ -45,7 +45,7 @@
             <vaadin-text-field prevent-invalid-input pattern="[0-9]*" maxlength="4" placeholder="Area" style="width: 5em;"></vaadin-text-field>
             <vaadin-text-field prevent-invalid-input pattern="[0-9]*" maxlength="8" placeholder="Subscriber"></vaadin-text-field>
           </vaadin-custom-field>
-          <p id="output">Selected value:</p>
+          <p id="output">Value:</p>
           <script>
             window.addDemoReadyListener('#custom-field-value-change-event', function(document) {
               const phoneNumber = document.querySelector('vaadin-custom-field');
