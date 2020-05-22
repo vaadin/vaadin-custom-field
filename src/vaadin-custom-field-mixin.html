@@ -131,14 +131,12 @@
       this.__labelId = `${this.constructor.is}-label-${uniqueId}`;
     }
 
+    /** @protected */
     focus() {
       this.inputs && this.inputs[0] && this.inputs[0].focus();
     }
 
-    /**
-     * @param {!Event | undefined} e
-     * @protected
-     */
+    /** @private */
     __updateValue(e) {
       // Stop native change events
       e && e.stopPropagation();
