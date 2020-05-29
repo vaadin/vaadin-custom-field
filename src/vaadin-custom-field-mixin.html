@@ -69,7 +69,15 @@
         __errorId: String,
 
         /** @private */
-        __labelId: String
+        __labelId: String,
+
+        /** @private */
+        __helperTextId: {
+          type: String
+        },
+
+        /** @private */
+        __hasSlottedHelper: Boolean,
       };
     }
 
@@ -79,12 +87,16 @@
       if (this.__observer) {
         this.__observer.connect();
       }
+      if (this.__helperObserver) {
+        this.__helperObserver.connect();
+      }
     }
 
     /** @protected */
     disconnectedCallback() {
       super.disconnectedCallback();
       this.__observer && this.__observer.disconnect();
+      this.__helperObserver && this.__helperObserver.disconnect();
     }
 
     /** @protected */
@@ -94,6 +106,10 @@
       this.__setInputsFromSlot();
       this.__observer = new Polymer.FlattenedNodesObserver(this.$.slot, () => {
         this.__setInputsFromSlot();
+      });
+
+      this.__helperObserver = new Polymer.FlattenedNodesObserver(this.$.helperSlot, () => {
+        this.__setOrToggleHasHelperAttribute();
       });
 
       const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
@@ -129,6 +145,7 @@
       var uniqueId = Vaadin.CustomFieldMixin._uniqueId = 1 + Vaadin.CustomFieldMixin._uniqueId || 1;
       this.__errorId = `${this.constructor.is}-error-${uniqueId}`;
       this.__labelId = `${this.constructor.is}-label-${uniqueId}`;
+      this.__helperTextId = `${this.constructor.is}-helper-${uniqueId}`;
     }
 
     /** @protected */
@@ -203,6 +220,21 @@
       this.inputs.forEach((input, id) => input.value = valuesArray[id]);
       if (oldValue !== undefined) {
         this.validate();
+      }
+    }
+
+    /** @private */
+    __setOrToggleHasHelperAttribute() {
+      const slottedNodes = this.shadowRoot.querySelector(`[name="helper"]`).assignedNodes();
+      // Only has slotted helper if not a text node
+      // Text nodes are added by the helperText prop and not the helper slot
+      // The filter is added due to shady DOM triggering this slotchange event on helperText prop change
+      this.__hasSlottedHelper = slottedNodes.filter(node => node.nodeType !== 3).length > 0;
+
+      if (this.__hasSlottedHelper) {
+        this.setAttribute('has-helper', 'slotted');
+      } else if (this.helperText === '' || this.helperText === null) {
+        this.removeAttribute('has-helper');
       }
     }
 
