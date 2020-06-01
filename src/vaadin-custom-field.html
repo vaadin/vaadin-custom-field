@@ -197,12 +197,12 @@ This program is available under Apache License Version 2.0, available at https:/
 
         /** @private */
         __errorMessageChanged(errorMessage) {
-          this.__setOrToggleAttribute('has-error-message', errorMessage === 0 || !!errorMessage, this);
+          this.__setOrToggleAttribute('has-error-message', !!errorMessage, this);
         }
 
         /** @private */
         __helperTextChanged(helperText) {
-          this.__setOrToggleAttribute('has-helper', helperText === 0 || !!helperText, this);
+          this.__setOrToggleAttribute('has-helper', !!helperText, this);
         }
 
         /** @private */

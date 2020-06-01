@@ -72,9 +72,7 @@
         __labelId: String,
 
         /** @private */
-        __helperTextId: {
-          type: String
-        },
+        __helperTextId: String,
 
         /** @private */
         __hasSlottedHelper: Boolean,
@@ -87,16 +85,12 @@
       if (this.__observer) {
         this.__observer.connect();
       }
-      if (this.__helperObserver) {
-        this.__helperObserver.connect();
-      }
     }
 
     /** @protected */
     disconnectedCallback() {
       super.disconnectedCallback();
       this.__observer && this.__observer.disconnect();
-      this.__helperObserver && this.__helperObserver.disconnect();
     }
 
     /** @protected */
@@ -108,9 +102,8 @@
         this.__setInputsFromSlot();
       });
 
-      this.__helperObserver = new Polymer.FlattenedNodesObserver(this.$.helperSlot, () => {
-        this.__setOrToggleHasHelperAttribute();
-      });
+      this.$.helperSlot.addEventListener('slotchange', this.__onHelperSlotChange.bind(this));
+      this.__onHelperSlotChange();
 
       const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
       this.addEventListener('keydown', e => {
@@ -224,8 +217,8 @@
     }
 
     /** @private */
-    __setOrToggleHasHelperAttribute() {
-      const slottedNodes = this.shadowRoot.querySelector(`[name="helper"]`).assignedNodes();
+    __onHelperSlotChange() {
+      const slottedNodes = this.$.helperSlot.assignedNodes({flatten: true});
       // Only has slotted helper if not a text node
       // Text nodes are added by the helperText prop and not the helper slot
       // The filter is added due to shady DOM triggering this slotchange event on helperText prop change
