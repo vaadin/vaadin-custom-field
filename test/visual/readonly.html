@@ -2,18 +2,9 @@
 
 <head lang="en">
   <meta charset="UTF-8">
-  <title></title>
-  <script src="../../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <title>Readonly custom field tests</title>
   <script>
-    const theme = window.location.search.replace(/.*theme=(\w+).*/, '$1') || 'lumo';
-    document.write(`<link rel="import" href="../../theme/${theme}/vaadin-custom-field.html">`);
-
-    window.addEventListener('WebComponentsReady', function() {
-      customElements.whenDefined('vaadin-custom-field').then(() => {
-        window.ShadyDOM && window.ShadyDOM.flush(); // Force DOM composition
-        window.webComponentsAreReady = true; // Checked in gemini before capture callback
-      });
-    });
+    window.polymerSkipLoadingFontRoboto = true;
   </script>
   <style>
     [type="number"] {
@@ -23,8 +14,7 @@
 </head>
 
 <body>
-
-  <div id="readonly-tests" style="padding: 10px; text-align: right; width: 700px;">
+  <div id="custom-field-tests" style="padding: 10px; text-align: right; width: 700px;">
     Read-only
     <vaadin-custom-field label="Home address" readonly>
       <input type="text" readonly>
@@ -70,4 +60,15 @@
     </vaadin-custom-field>
   </div>
 
+  <script type="module">
+    (async () => {
+      const theme = window.location.search.replace(/.*theme=(\w+).*/, '$1') || 'lumo';
+
+      await import('../../theme/' + theme + '/vaadin-custom-field.js');
+
+      window.requestAnimationFrame(() => {
+        document.getElementById('custom-field-tests').dataset.ready = true;
+      });
+    })();
+  </script>
 </body>
