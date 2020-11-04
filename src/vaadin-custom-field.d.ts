@@ -1,8 +1,8 @@
-import {ThemableMixin} from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
+import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 
-import {ElementMixin} from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
+import { ElementMixin } from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
 
-import {CustomFieldMixin} from './vaadin-custom-field-mixin.js';
+import { CustomFieldMixin } from './vaadin-custom-field-mixin.js';
 
 /**
  * `<vaadin-custom-field>` is a Web Component providing field wrapper functionality.
@@ -38,12 +38,7 @@ import {CustomFieldMixin} from './vaadin-custom-field-mixin.js';
  *
  * See [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)
  */
-declare class CustomFieldElement extends
-  ElementMixin(
-  ThemableMixin(
-  CustomFieldMixin(
-  HTMLElement))) {
-
+declare class CustomFieldElement extends ElementMixin(ThemableMixin(CustomFieldMixin(HTMLElement))) {
   /**
    * String used for the label element.
    */
@@ -52,12 +47,12 @@ declare class CustomFieldElement extends
   /**
    * The name of the control, which is submitted with the form data.
    */
-  name: string|null|undefined;
+  name: string | null | undefined;
 
   /**
    * Specifies that the user must fill in a value.
    */
-  required: boolean|null|undefined;
+  required: boolean | null | undefined;
 
   /**
    * The value of the field. When wrapping several inputs, it will contain `\t`
@@ -65,7 +60,7 @@ declare class CustomFieldElement extends
    * corresponding inputs values. Use the [`i18n`](#/elements/vaadin-custom-field#property-i18n)
    * property to customize this behavior.
    */
-  value: string|null|undefined;
+  value: string | null | undefined;
 
   /**
    * This property is set to true when the control value is invalid.
@@ -82,7 +77,7 @@ declare class CustomFieldElement extends
    * String used for the helper text.
    * @attr {string} helper-text
    */
-  helperText: string|null;
+  helperText: string | null;
 
   /**
    * Returns true if `value` is valid.
@@ -99,10 +94,9 @@ declare class CustomFieldElement extends
 }
 
 declare global {
-
   interface HTMLElementTagNameMap {
-    "vaadin-custom-field": CustomFieldElement;
+    'vaadin-custom-field': CustomFieldElement;
   }
 }
 
-export {CustomFieldElement};
+export { CustomFieldElement };
