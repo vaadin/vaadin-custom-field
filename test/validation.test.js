@@ -40,7 +40,7 @@ describe('validation', () => {
     });
 
     it('should be displayed when the field is invalid', () => {
-      expect(errorMessageElement.textContent).to.equal('Foo');
+      expect(errorMessageElement.textContent.trim()).to.equal('Foo');
     });
 
     it('should toggle aria-hidden attribute on invalid change', () => {
