@@ -91,6 +91,18 @@ declare class CustomFieldElement extends ElementMixin(ThemableMixin(CustomFieldM
    * Returns true if the current inputs values satisfy all constraints (if any)
    */
   checkValidity(): boolean;
+
+  addEventListener<K extends keyof CustomFieldEventMap>(
+    type: K,
+    listener: (this: CustomFieldElement, ev: CustomFieldEventMap[K]) => void,
+    options?: boolean | AddEventListenerOptions
+  ): void;
+
+  removeEventListener<K extends keyof CustomFieldEventMap>(
+    type: K,
+    listener: (this: CustomFieldElement, ev: CustomFieldEventMap[K]) => void,
+    options?: boolean | EventListenerOptions
+  ): void;
 }
 
 declare global {
@@ -100,3 +112,21 @@ declare global {
 }
 
 export { CustomFieldElement };
+
+export type CustomFieldInvalidChanged = CustomEvent<{ value: boolean; path: 'invalid' }>;
+
+export type CustomFieldValueChanged = CustomEvent<{ value: string; path: 'value' }>;
+
+export interface CustomFieldElementEventMap {
+  /**
+   * Fired when the `invalid` property changes.
+   */
+  'invalid-changed': CustomFieldInvalidChanged;
+
+  /**
+   * Fired when the `value` property changes.
+   */
+  'value-changed': CustomFieldValueChanged;
+}
+
+export interface CustomFieldEventMap extends HTMLElementEventMap, CustomFieldElementEventMap {}
