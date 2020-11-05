@@ -3,12 +3,10 @@
 Copyright (c) 2018 Vaadin Ltd.
 This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
 */
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-
+import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 import { ElementMixin } from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
 import { CustomFieldMixin } from './vaadin-custom-field-mixin.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
 /**
  * `<vaadin-custom-field>` is a Web Component providing field wrapper functionality.
@@ -52,45 +50,52 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 class CustomFieldElement extends ElementMixin(CustomFieldMixin(ThemableMixin(PolymerElement))) {
   static get template() {
     return html`
-    <style>
-      :host {
-        display: inline-flex;
-      }
+      <style>
+        :host {
+          display: inline-flex;
+        }
 
-      :host::before {
-        content: "\\2003";
-        width: 0;
-        display: inline-block;
-        /* Size and position this element on the same vertical position as the input-field element
+        :host::before {
+          content: '\\2003';
+          width: 0;
+          display: inline-block;
+          /* Size and position this element on the same vertical position as the input-field element
            to make vertical align for the host element work as expected */
-      }
+        }
 
-      :host([hidden]) {
-        display: none !important;
-      }
+        :host([hidden]) {
+          display: none !important;
+        }
 
-      .container {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-      }
+        .container {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+        }
 
-      .inputs-wrapper {
-        flex: none;
-      }
-    </style>
+        .inputs-wrapper {
+          flex: none;
+        }
+      </style>
 
-    <div class="container">
-      <label part="label" on-click="focus" id="[[__labelId]]">[[label]]</label>
-      <div class="inputs-wrapper" on-change="__updateValue">
-        <slot id="slot"></slot>
+      <div class="container">
+        <label part="label" on-click="focus" id="[[__labelId]]">[[label]]</label>
+        <div class="inputs-wrapper" on-change="__updateValue">
+          <slot id="slot"></slot>
+        </div>
+        <div part="helper-text" on-click="focus" id="[[__helperTextId]]">
+          <slot name="helper" id="helperSlot">[[helperText]]</slot>
+        </div>
+        <div
+          part="error-message"
+          id="[[__errorId]]"
+          aria-live="assertive"
+          aria-hidden$="[[__getErrorMessageAriaHidden(invalid, errorMessage, __errorId)]]"
+        >
+          [[errorMessage]]
+        </div>
       </div>
-      <div part="helper-text" on-click="focus" id="[[__helperTextId]]">
-        <slot name="helper" id="helperSlot">[[helperText]]</slot>
-      </div>
-      <div part="error-message" id="[[__errorId]]" aria-live="assertive" aria-hidden\$="[[__getErrorMessageAriaHidden(invalid, errorMessage, __errorId)]]">[[errorMessage]]</div>
-    </div>
-`;
+    `;
   }
 
   static get is() {
@@ -229,8 +234,7 @@ class CustomFieldElement extends ElementMixin(CustomFieldMixin(ThemableMixin(Pol
    * @return {boolean}
    */
   checkValidity() {
-    const invalidFields = this.inputs
-      .filter(input => !(input.validate || input.checkValidity).call(input));
+    const invalidFields = this.inputs.filter((input) => !(input.validate || input.checkValidity).call(input));
 
     if (invalidFields.length || (this.required && !this.value.trim())) {
       // Either 1. one of the input fields is invalid or
@@ -247,7 +251,7 @@ class CustomFieldElement extends ElementMixin(CustomFieldMixin(ThemableMixin(Pol
     }
     if (node.hasAttribute(name) === !value) {
       if (value) {
-        node.setAttribute(name, (typeof value === 'boolean') ? '' : value);
+        node.setAttribute(name, typeof value === 'boolean' ? '' : value);
       } else {
         node.removeAttribute(name);
       }
@@ -272,9 +276,7 @@ class CustomFieldElement extends ElementMixin(CustomFieldMixin(ThemableMixin(Pol
 
   /** @private */
   __getActiveLabelId(label, labelId) {
-    this.__setOrToggleAttribute('aria-labelledby',
-      (label ? labelId : undefined),
-      this);
+    this.__setOrToggleAttribute('aria-labelledby', label ? labelId : undefined, this);
   }
 
   /** @private */

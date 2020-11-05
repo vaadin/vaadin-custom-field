@@ -5,7 +5,7 @@ import { dispatchChange } from './common.js';
 import '../vaadin-custom-field.js';
 
 describe('custom parser and formatter', () => {
-  let customField, textInput;
+  let customField;
 
   beforeEach(() => {
     customField = fixtureSync(html`
@@ -14,7 +14,6 @@ describe('custom parser and formatter', () => {
         <input type="number" />
       </vaadin-custom-field>
     `);
-    textInput = customField.querySelector('input[type="text"]');
   });
 
   it('should use custom parser if that exists', () => {

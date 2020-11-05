@@ -85,7 +85,7 @@ describe('custom field', () => {
     });
 
     it('should have unique label id', () => {
-      expect(labelElement.id.match(/vaadin\-custom\-field\-label\-[0-9]*/).length).to.equal(1);
+      expect(labelElement.id.match(/vaadin-custom-field-label-[0-9]*/).length).to.equal(1);
     });
   });
 

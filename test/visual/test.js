@@ -44,7 +44,6 @@ describe('vaadin-custom-field', () => {
         .assertView(`${theme}-width`, locator);
     });
 
-
     it(`${theme}-form-layout`, function () {
       return this.browser
         .url(`form-layout.html?theme=${theme}`)
@@ -61,9 +60,6 @@ describe('vaadin-custom-field', () => {
   });
 
   it('lumo-small', function () {
-    return this.browser
-      .url('lumo.html')
-      .waitForVisible(locator, 10000)
-      .assertView('lumo-small', locator);
+    return this.browser.url('lumo.html').waitForVisible(locator, 10000).assertView('lumo-small', locator);
   });
 });

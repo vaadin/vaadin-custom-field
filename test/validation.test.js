@@ -54,7 +54,7 @@ describe('validation', () => {
     });
 
     it('should have unique error id', () => {
-      expect(errorMessageElement.id.match(/vaadin\-custom\-field\-error\-[0-9]*/).length).to.equal(1);
+      expect(errorMessageElement.id.match(/vaadin-custom-field-error-[0-9]*/).length).to.equal(1);
     });
   });
 
