@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>vaadin-custom-field tests</title>
-  <script src="../../web-component-tester/browser.js"></script>
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../../iron-test-helpers/mock-interactions.js"></script>
-  <link rel="import" href="../../test-fixture/test-fixture.html">
-  <link rel="import" href="../vaadin-custom-field.html">
-  <link rel="import" href="helpers.html">
+  <script src="../../../wct-browser-legacy/browser.js"></script>
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../../../@polymer/iron-test-helpers/mock-interactions.js" type="module"></script>
+  <script type="module" src="../../../@polymer/test-fixture/test-fixture.js"></script>
+  <script type="module" src="../vaadin-custom-field.js"></script>
+  <script type="module" src="./helpers.js"></script>
 </head>
 
 <body>
@@ -37,16 +37,18 @@
         </slot>
       </vaadin-custom-field>
     </template>
-    <script>
-      window.addEventListener('WebComponentsReady', () => {
-        class WrapperField extends Polymer.Element {
-          static get is() {
-            return 'wrapper-field';
-          }
-        }
-        customElements.define(WrapperField.is, WrapperField);
-      });
-    </script>
+    <script type="module">
+import '@polymer/test-fixture/test-fixture.js';
+import '../vaadin-custom-field.js';
+import './helpers.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+class WrapperField extends PolymerElement {
+  static get is() {
+    return 'wrapper-field';
+  }
+}
+customElements.define(WrapperField.is, WrapperField);
+</script>
   </dom-module>
 
   <test-fixture id="wrapping-slots">
@@ -55,102 +57,105 @@
     </template>
   </test-fixture>
 
-  <script>
-    describe('keyboard navigation', function() {
-      var customField;
+  <script type="module">
+import '@polymer/test-fixture/test-fixture.js';
+import '../vaadin-custom-field.js';
+import './helpers.js';
+describe('keyboard navigation', function() {
+  var customField;
 
-      function tab(target) {
-        MockInteractions.keyDownOn(target, 9, [], 'Tab');
-      }
+  function tab(target) {
+    MockInteractions.keyDownOn(target, 9, [], 'Tab');
+  }
 
-      function shiftTab(target) {
-        MockInteractions.keyDownOn(target, 9, 'shift', 'Tab');
-      }
+  function shiftTab(target) {
+    MockInteractions.keyDownOn(target, 9, 'shift', 'Tab');
+  }
 
-      describe('default', function() {
+  describe('default', function() {
 
-        beforeEach(function() {
-          customField = fixture('default');
-        });
-
-        it('should fire `internal-tab` event on Tab', () => {
-          const internalTabSpy = sinon.spy();
-          customField.addEventListener('internal-tab', internalTabSpy);
-          for (let i = 0; i < 3; i ++) {
-            tab(customField.inputs[i]);
-          }
-
-          expect(internalTabSpy.callCount).to.equal(3);
-        });
-
-        it('should not fire `internal-tab` event on Tab from the last input', () => {
-          const internalTabSpy = sinon.spy();
-          customField.addEventListener('internal-tab', internalTabSpy);
-          tab(customField.inputs[3]);
-
-          expect(internalTabSpy).not.to.be.called;
-        });
-
-        it('should update the value on Tab from the last input', () => {
-          customField.inputs[3].value = 1;
-          tab(customField.inputs[3]);
-
-          expect(customField.value).to.equal('\t\t\t1');
-        });
-
-        it('should fire `internal-tab` event on Shift Tab', () => {
-          const internalTabSpy = sinon.spy();
-          customField.addEventListener('internal-tab', internalTabSpy);
-          for (let i = 3; i > 0; i --) {
-            shiftTab(customField.inputs[i]);
-          }
-
-          expect(internalTabSpy.callCount).to.equal(3);
-        });
-
-        it('should not fire `internal-tab` event on Shift Tab from the first input', () => {
-          const internalTabSpy = sinon.spy();
-          customField.addEventListener('internal-tab', internalTabSpy);
-          shiftTab(customField.inputs[0]);
-
-          expect(internalTabSpy).not.to.be.called;
-        });
-
-        it('should update the value on Shift Tab from the first input', () => {
-          customField.inputs[0].value = 1;
-          shiftTab(customField.inputs[0]);
-
-          expect(customField.value).to.equal('1\t\t\t');
-        });
-
-      });
-
-      describe('wrapping-slots', function() {
-        let wrapper;
-
-        beforeEach(function() {
-          wrapper = fixture('wrapping-slots');
-          customField = wrapper.$.customField;
-        });
-
-        const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-        // Skip this test on any platform apart from Chrome
-        (isChrome ? it : it.skip)('should properly set tabindexes on Shift Tab for wrapping slots', done => {
-          for (let i = 2; i > -1; i --) {
-            const input = customField.inputs[i];
-            expect(input.parentElement.hasAttribute('tabindex')).to.be.false;
-            shiftTab(input);
-            expect(input.parentElement.getAttribute('tabindex')).to.equal('-1');
-          }
-
-          setTimeout(() => {
-            expect(customField.inputs.filter(input => input.hasAttribute('tabindex')).length).to.equal(0);
-            done();
-          });
-        });
-
-      });
-
+    beforeEach(function() {
+      customField = fixture('default');
     });
-  </script>
+
+    it('should fire `internal-tab` event on Tab', () => {
+      const internalTabSpy = sinon.spy();
+      customField.addEventListener('internal-tab', internalTabSpy);
+      for (let i = 0; i < 3; i ++) {
+        tab(customField.inputs[i]);
+      }
+
+      expect(internalTabSpy.callCount).to.equal(3);
+    });
+
+    it('should not fire `internal-tab` event on Tab from the last input', () => {
+      const internalTabSpy = sinon.spy();
+      customField.addEventListener('internal-tab', internalTabSpy);
+      tab(customField.inputs[3]);
+
+      expect(internalTabSpy).not.to.be.called;
+    });
+
+    it('should update the value on Tab from the last input', () => {
+      customField.inputs[3].value = 1;
+      tab(customField.inputs[3]);
+
+      expect(customField.value).to.equal('\t\t\t1');
+    });
+
+    it('should fire `internal-tab` event on Shift Tab', () => {
+      const internalTabSpy = sinon.spy();
+      customField.addEventListener('internal-tab', internalTabSpy);
+      for (let i = 3; i > 0; i --) {
+        shiftTab(customField.inputs[i]);
+      }
+
+      expect(internalTabSpy.callCount).to.equal(3);
+    });
+
+    it('should not fire `internal-tab` event on Shift Tab from the first input', () => {
+      const internalTabSpy = sinon.spy();
+      customField.addEventListener('internal-tab', internalTabSpy);
+      shiftTab(customField.inputs[0]);
+
+      expect(internalTabSpy).not.to.be.called;
+    });
+
+    it('should update the value on Shift Tab from the first input', () => {
+      customField.inputs[0].value = 1;
+      shiftTab(customField.inputs[0]);
+
+      expect(customField.value).to.equal('1\t\t\t');
+    });
+
+  });
+
+  describe('wrapping-slots', function() {
+    let wrapper;
+
+    beforeEach(function() {
+      wrapper = fixture('wrapping-slots');
+      customField = wrapper.$.customField;
+    });
+
+    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    // Skip this test on any platform apart from Chrome
+    (isChrome ? it : it.skip)('should properly set tabindexes on Shift Tab for wrapping slots', done => {
+      for (let i = 2; i > -1; i --) {
+        const input = customField.inputs[i];
+        expect(input.parentElement.hasAttribute('tabindex')).to.be.false;
+        shiftTab(input);
+        expect(input.parentElement.getAttribute('tabindex')).to.equal('-1');
+      }
+
+      setTimeout(() => {
+        expect(customField.inputs.filter(input => input.hasAttribute('tabindex')).length).to.equal(0);
+        done();
+      });
+    });
+
+  });
+
+});
+</script>
 </body>
