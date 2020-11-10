@@ -4,6 +4,8 @@ import { ElementMixin } from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.
 
 import { CustomFieldMixin } from './vaadin-custom-field-mixin.js';
 
+import { CustomFieldEventMap } from './interfaces';
+
 /**
  * `<vaadin-custom-field>` is a Web Component providing field wrapper functionality.
  *
@@ -112,21 +114,3 @@ declare global {
 }
 
 export { CustomFieldElement };
-
-export type CustomFieldInvalidChanged = CustomEvent<{ value: boolean; path: 'invalid' }>;
-
-export type CustomFieldValueChanged = CustomEvent<{ value: string; path: 'value' }>;
-
-export interface CustomFieldElementEventMap {
-  /**
-   * Fired when the `invalid` property changes.
-   */
-  'invalid-changed': CustomFieldInvalidChanged;
-
-  /**
-   * Fired when the `value` property changes.
-   */
-  'value-changed': CustomFieldValueChanged;
-}
-
-export interface CustomFieldEventMap extends HTMLElementEventMap, CustomFieldElementEventMap {}
