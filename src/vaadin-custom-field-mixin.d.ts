@@ -23,6 +23,7 @@ interface CustomFieldMixin {
    *
    * The object has the following JSON structure:
    *
+   * ```
    * {
    *   // A function to format given `Array` as
    *   // component value. Array is list of all internal values
@@ -34,14 +35,16 @@ interface CustomFieldMixin {
    *     // in the form of string with delimiter characters
    *   },
    *
-   * // A function to parse the given value to an `Array` in the format
-   * // of the list of all internal values
-   * // in the order of their presence in the DOM
-   * // This function is called when value of the
-   * // custom field is set.
-   * parseValue: value => {
-   *   // returns the array of values from parsed value string.
+   *   // A function to parse the given value to an `Array` in the format
+   *   // of the list of all internal values
+   *   // in the order of their presence in the DOM
+   *   // This function is called when value of the
+   *   // custom field is set.
+   *   parseValue: value => {
+   *     // returns the array of values from parsed value string.
+   *   }
    * }
+   * ```
    */
   i18n: CustomFieldI18n;
 }
