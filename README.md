@@ -1,5 +1,8 @@
 # &lt;vaadin-custom-field&gt;
 
+> ⚠️ Starting from Vaadin 20, the source code and issues for this component are migrated to the [`vaadin/web-components`](https://github.com/vaadin/web-components/tree/master/packages/vaadin-custom-field) monorepository.
+> This repository contains the source code and releases of `<vaadin-custom-field>` for the Vaadin versions 10 to 19.
+
 [&lt;vaadin-custom-field&gt;](https://vaadin.com/components/vaadin-custom-field) is a Web Component providing field wrapper functionality, part of the [Vaadin components](https://vaadin.com/components).
 
 [Live Demo ↗](https://vaadin.com/components/vaadin-custom-field/html-examples)
