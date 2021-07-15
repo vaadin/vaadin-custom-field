@@ -10,13 +10,9 @@
 [API documentation ↗](https://vaadin.com/components/vaadin-custom-field/html-api)
 
 [![npm version](https://badgen.net/npm/v/@vaadin/vaadin-custom-field)](https://www.npmjs.com/package/@vaadin/vaadin-custom-field)
-[![Bower version](https://badgen.net/github/release/vaadin/vaadin-custom-field)](https://github.com/vaadin/vaadin-custom-field/releases)
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/vaadin/vaadin-custom-field)
-[![Build Status](https://travis-ci.org/vaadin/vaadin-custom-field.svg?branch=master)](https://travis-ci.org/vaadin/vaadin-custom-field)
-[![Coverage Status](https://coveralls.io/repos/github/vaadin/vaadin-custom-field/badge.svg?branch=master)](https://coveralls.io/github/vaadin/vaadin-custom-field?branch=master)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/vaadin/web-components?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Published on Vaadin Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/vaadinvaadin-custom-field)
-[![Stars on vaadin.com/directory](https://img.shields.io/vaadin-directory/star/vaadin-custom-field-directory-urlidentifier.svg)](https://vaadin.com/directory/component/vaadinvaadin-custom-field)
+[![Discord](https://img.shields.io/discord/732335336448852018?label=discord)](https://discord.gg/PHmkCKC)
+
 <!--
 ```
 <custom-element-demo>
