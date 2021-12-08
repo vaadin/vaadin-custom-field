@@ -10,6 +10,7 @@
       <link rel="import" href="../../theme/${theme}/vaadin-custom-field.html">
       <link rel="import" href="../../../vaadin-text-field/theme/${theme}/vaadin-text-field.html">
       <link rel="import" href="../../../vaadin-time-picker/theme/${theme}/vaadin-time-picker.html">
+      <link rel="import" href="../../../vaadin-rich-text-editor/theme/${theme}/vaadin-rich-text-editor.html">
     `);
 
     window.addEventListener('WebComponentsReady', function() {
@@ -28,6 +29,12 @@
     </vaadin-custom-field>
     <vaadin-text-field invalid error-message="Invalid" theme="small" label="Small text field"></vaadin-text-field>
     <vaadin-time-picker value="09:00" theme="small" label="Small time picker"></vaadin-time-picker>
+  </div>
+
+  <div id="lumo-test-whitespace" style="padding: 10px;">
+    <vaadin-custom-field label="Custom field" theme="whitespace">
+      <vaadin-rich-text-editor></vaadin-rich-text-editor>
+    </vaadin-custom-field>
   </div>
 
 </body>
