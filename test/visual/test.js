@@ -83,4 +83,10 @@ gemini.suite('vaadin-custom-field', function(rootSuite) {
       .capture('default');
   });
 
+  gemini.suite('lumo-tests-whitespace', function(suite) {
+    suite
+      .setUrl('lumo.html?theme=lumo')
+      .setCaptureElements('#lumo-test-whitespace')
+      .capture('default');
+  });
 });
