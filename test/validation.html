@@ -1,0 +1,51 @@
+<!doctype html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>vaadin-custom-field validation tests</title>
+  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../test-fixture/test-fixture.html">
+  <link rel="import" href="../vaadin-custom-field.html">
+</head>
+
+<body>
+  <test-fixture id="custom-field">
+    <template>
+      <vaadin-custom-field>
+        <input type="text">
+        <input type="number">
+      </vaadin-custom-field>
+    </template>
+  </test-fixture>
+  <script>
+  describe('basic', () => {
+    let customField;
+  
+    beforeEach(() => {
+      customField = fixture('custom-field');
+    });
+  
+    it('should fire a validated event on validation success', () => {
+      const validatedSpy = sinon.spy();
+      customField.addEventListener('validated', validatedSpy);
+      customField.validate();
+  
+      expect(validatedSpy.calledOnce).to.be.true;
+      const event = validatedSpy.firstCall.args[0];
+      expect(event.detail.valid).to.be.true;
+    });
+  
+    it('should fire a validated event on validation failure', () => {
+      const validatedSpy = sinon.spy();
+      customField.addEventListener('validated', validatedSpy);
+      customField.required = true;
+      customField.validate();
+  
+      expect(validatedSpy.calledOnce).to.be.true;
+      const event = validatedSpy.firstCall.args[0];
+      expect(event.detail.valid).to.be.false;
+    });
+  });
+  </script>
+</body>
