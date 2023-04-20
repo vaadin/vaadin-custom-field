@@ -49,11 +49,10 @@
     });
   });
   describe('invalid cannot be set to false', () => {
-    let customField, textInput;
+    let customField;
   
     beforeEach(async() => {
       customField = fixture('custom-field');
-      textInput = customField.querySelector('input[type="text"]');
       customField._shouldSetInvalid = (invalid) => invalid;
       await nextRender();
     });
@@ -62,8 +61,7 @@
       customField.required = true;
       customField.validate();
       expect(customField.invalid).to.be.true;
-      textInput.value = 'value';
-      dispatchChange(textInput);
+      customField.value = 'value';
       customField.validate();
       expect(customField.invalid).to.be.true;
     });
