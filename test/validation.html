@@ -7,6 +7,7 @@
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../../test-fixture/test-fixture.html">
   <link rel="import" href="../vaadin-custom-field.html">
+  <link rel="import" href="helpers.html">
 </head>
 
 <body>
@@ -14,7 +15,6 @@
     <template>
       <vaadin-custom-field>
         <input type="text">
-        <input type="number">
       </vaadin-custom-field>
     </template>
   </test-fixture>
@@ -45,6 +45,24 @@
       expect(validatedSpy.calledOnce).to.be.true;
       const event = validatedSpy.firstCall.args[0];
       expect(event.detail.valid).to.be.false;
+    });
+  });
+  describe('invalid cannot be set to false', () => {
+    let customField;
+  
+    beforeEach(async() => {
+      customField = fixture('custom-field');
+      customField._shouldSetInvalid = (invalid) => invalid;
+      await nextRender();
+    });
+  
+    it('should set invalid only when it is true', async() => {
+      customField.required = true;
+      customField.validate();
+      expect(customField.invalid).to.be.true;
+      customField.value = 'value';
+      customField.validate();
+      expect(customField.invalid).to.be.true;
     });
   });
   </script>
